@@ -1,10 +1,39 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "SessionManagementApp";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Cześć</h1>
+    
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="YearNameForm.Year"></label>
+            <input class="form-control" asp-for="YearNameForm.Year" />
+            <span asp-validation-for="YearNameForm.Year" class="text-danger" style="font-weight: bold;"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="YearNameForm.Name"></label>
+            <input class="form-control" asp-for="YearNameForm.Name" />
+            <span asp-validation-for="YearNameForm.Name" class="text-danger" style="font-weight: bold;"></span>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary btn-gap">Submit</button>
+        </div>
+    </form>
+    
+    @if (Model.YearNameForm != null && ModelState.IsValid)
+    {
+        <div class="alert alert-success btn-gap" role="alert">
+            <p>@Model.YearNameForm.Name urodził@(Model.YearNameForm.Name.EndsWith("a") ? "a" : "") się @Model.YearNameForm.Year. </p>
+            <p>To  @(DateTime.IsLeapYear(Model.YearNameForm.Year) ? "" : "nie") był rok przestępny.</p> 
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-secondary btn-gap" role="alert">
+            Wypełnij pola :)
+        </div>
+    }
 </div>
