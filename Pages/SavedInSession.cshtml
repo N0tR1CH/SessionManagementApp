@@ -13,8 +13,7 @@
             @foreach (var YearNameForm in Model.YearNameForms)
             {
                 <li>
-                    <p>@YearNameForm.Name urodził@(YearNameForm.Name.EndsWith("a") ? "a" : "") się @YearNameForm.Year. </p>
-                    <p>To @(DateTime.IsLeapYear(YearNameForm.Year) ? "" : "nie") był rok przestępny.</p>
+                    <p>@YearNameForm.Name, @YearNameForm.Year @(DateTime.IsLeapYear(YearNameForm.Year) ? "- rok przestępny" : "")</p>
                 </li>
             }
         }
