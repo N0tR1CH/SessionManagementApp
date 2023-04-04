@@ -8,12 +8,19 @@
     <h1 class="display-4">@ViewData["Title"]</h1>
     
     <ul>
-        @foreach(var YearNameForm in Model.GetYearNameForms())
+        @if (Model.YearNameForms != null)
         {
-            <li>
-                <p>@YearNameForm.Name urodził@(YearNameForm.Name.EndsWith("a") ? "a" : "") się @YearNameForm.Year. </p>
-                <p>To  @(DateTime.IsLeapYear(YearNameForm.Year) ? "" : "nie") był rok przestępny.</p>
-            </li>
+            @foreach (var YearNameForm in Model.YearNameForms)
+            {
+                <li>
+                    <p>@YearNameForm.Name urodził@(YearNameForm.Name.EndsWith("a") ? "a" : "") się @YearNameForm.Year. </p>
+                    <p>To @(DateTime.IsLeapYear(YearNameForm.Year) ? "" : "nie") był rok przestępny.</p>
+                </li>
+            }
+        }
+        else
+        {
+            <p>No data in available.</p>
         }
     </ul>
 </div>

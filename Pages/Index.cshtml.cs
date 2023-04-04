@@ -6,7 +6,6 @@ using SessionManagementApp.Forms;
 using System.Collections.Generic;
 using System.Net;
 using Microsoft.Extensions.Logging;
-using SessionManagementApp.ExtensionMethods;
 
 namespace SessionManagementApp.Pages;
 
@@ -16,6 +15,8 @@ public class IndexModel : PageModel
     
     [BindProperty]
     public YearNameForm YearNameForm { get; set; }
+    
+    public List<YearNameForm> YearNameForms { get; set; }
 
     public IndexModel(ILogger<IndexModel> logger)
     {
@@ -30,7 +31,16 @@ public class IndexModel : PageModel
     {
         if (ModelState.IsValid)
         {
-            HttpContext.Session.SetString("YearNameForm", JsonConvert.SerializeObject(YearNameForm));
+            var Data = HttpContext.Session.GetString("YearNameForms");
+            
+            if (Data != null)
+                YearNameForms = JsonConvert.DeserializeObject<List<YearNameForm>>(Data);
+            else
+                YearNameForms = new List<YearNameForm>();
+            
+            YearNameForms.Add(YearNameForm);
+            
+            HttpContext.Session.SetString("YearNameForms", JsonConvert.SerializeObject(YearNameForms));
         }
         return Page();
     }

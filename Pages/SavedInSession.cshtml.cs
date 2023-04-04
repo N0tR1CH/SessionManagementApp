@@ -8,22 +8,15 @@ namespace SessionManagementApp.Pages
 {
     public class SavedInSessionModel : PageModel
     {
-        private static List<YearNameForm> YearNameForms = new List<YearNameForm>();
-        public YearNameForm YearNameForm { get; set; }
-        
-        public List<YearNameForm> GetYearNameForms()
-        {
-            return YearNameForms;
-        }
-        
+        public List<YearNameForm> YearNameForms { get; set; }
+
         public void OnGet()
         {
-            var Data = HttpContext.Session.GetString("YearNameForm");
+            var Data = HttpContext.Session.GetString("YearNameForms");
 
             if (Data != null)
             {
-                YearNameForm = JsonConvert.DeserializeObject<YearNameForm>(Data);
-                YearNameForms.Add(YearNameForm);
+                YearNameForms = JsonConvert.DeserializeObject<List<YearNameForm>>(Data);
             }
         }
     }
